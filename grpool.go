@@ -87,7 +87,7 @@ type Pool struct {
 	wg         sync.WaitGroup
 }
 
-// Will make pool of gorouting workers.
+// NewPool Will make pool of gorouting workers.
 // numWorkers - how many workers will be created for this pool
 // queueLen - how many jobs can we accept until we block
 //
@@ -118,12 +118,12 @@ func (p *Pool) WaitCount(count int) {
 	p.wg.Add(count)
 }
 
-// Will wait for all jobs to finish.
+// WaitAll Will wait for all jobs to finish.
 func (p *Pool) WaitAll() {
 	p.wg.Wait()
 }
 
-// Will release resources used by pool
+// Release Will release resources used by pool
 func (p *Pool) Release() {
 	p.dispatcher.stop <- struct{}{}
 	<-p.dispatcher.stop
